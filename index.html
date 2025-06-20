@@ -12,7 +12,6 @@
       --primary: #4b6cb7;
       --primary-dark: #182848;
       --text-color: #2f3640;
-      --bg: #f6f8fb;
     }
 
     * {
@@ -31,10 +30,6 @@
       padding: 20px;
     }
 
-    body.no-scroll {
-      overflow: hidden;
-    }
-
     .card {
       background: #fff;
       border-radius: 16px;
@@ -43,7 +38,6 @@
       width: 100%;
       padding: 32px;
       text-align: center;
-      animation: fadeIn 0.7s ease;
     }
 
     h1 {
@@ -56,53 +50,23 @@
       font-size: 15px;
     }
 
-    .reasons {
-      text-align: left;
-      font-size: 14px;
-      margin-top: 20px;
-      padding-left: 15px;
-    }
-
-    .reasons li {
-      margin-bottom: 10px;
-    }
-
     .qr {
       padding: 20px;
       background: #f8faff;
       border-radius: 20px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
       margin: 20px 0;
-      cursor: zoom-in;
+      cursor: pointer;
       transition: all 0.3s ease;
-    }
-
-    .qr.enlarged {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(1.1);
-      background: white;
-      z-index: 10001;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-      animation: scaleIn 0.3s ease;
     }
 
     .qr img {
       width: 100%;
-      max-width: 300px;
+      max-width: 280px;
       height: auto;
       display: block;
       margin: 0 auto;
       border-radius: 12px;
-    }
-
-    .scan-note {
-      font-size: 13px;
-      color: #555;
-      margin-top: 10px;
     }
 
     .donate-buttons {
@@ -120,7 +84,7 @@
       padding: 10px 16px;
       font-size: 14px;
       border-radius: 8px;
-      cursor: pointer;
+      text-decoration: none;
       transition: background 0.2s, transform 0.2s;
     }
 
@@ -154,15 +118,6 @@
       text-align: center;
     }
 
-    a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
     .fab {
       position: fixed;
       bottom: 20px;
@@ -174,102 +129,62 @@
       border-radius: 30px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       cursor: pointer;
-      transition: background 0.3s ease;
       z-index: 1000;
     }
 
     .fab:hover {
       background: var(--primary-dark);
     }
-
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 10000;
-      display: none;
-    }
-
-    .overlay.show {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes scaleIn {
-      from { transform: scale(0.8) translate(-50%, -50%); opacity: 0; }
-      to { transform: scale(1.1) translate(-50%, -50%); opacity: 1; }
-    }
   </style>
 </head>
 <body>
-  <div class="overlay" id="qrOverlay" onclick="toggleQR()"></div>
+
   <div class="card" id="top">
     <h1>Support My Work 💙</h1>
-    <p>Scan or click an amount to donate via UPI</p>
-    <div class="qr" id="qrBox">
-      <img src="qr-code.svg" alt="UPI QR Code" onclick="toggleQR()">
-      <p class="scan-note">Scan using any UPI app like GPay, PhonePe, or Paytm</p>
+    <p>Click an amount or scan the QR below</p>
+
+    <div class="qr" onclick="enlargeQR()">
+      <img src="qr-code.svg" alt="UPI QR Code">
       <p style="font-size: 13px; color: #777;">UPI ID: <strong>cibinanoop242004@oksbi</strong></p>
     </div>
-    <ul class="reasons">
-      <li>💡 Help me build more open-source tools</li>
-      <li>📚 Fund my learning and development</li>
-      <li>☕ Buy me a coffee if you liked my work</li>
-    </ul>
+
     <div class="donate-buttons">
-      <button class="donate-btn" onclick="payNow(19)">₹19</button>
-      <button class="donate-btn" onclick="payNow(49)">₹49</button>
-      <button class="donate-btn" onclick="payNow(99)">₹99</button>
+      <a class="donate-btn" href="upi://pay?pa=cibinanoop242004@oksbi&pn=Cibin%20Anoop&am=19.00&cu=INR&aid=uGICAgMDSk4eALQ">₹19</a>
+      <a class="donate-btn" href="upi://pay?pa=cibinanoop242004@oksbi&pn=Cibin%20Anoop&am=49.00&cu=INR&aid=uGICAgMDSk4eALQ">₹49</a>
+      <a class="donate-btn" href="upi://pay?pa=cibinanoop242004@oksbi&pn=Cibin%20Anoop&am=99.00&cu=INR&aid=uGICAgMDSk4eALQ">₹99</a>
     </div>
+
     <input type="number" id="customAmount" placeholder="Enter custom amount (₹)">
-    <button class="donate-btn" onclick="payCustom()">Donate Custom</button>
+    <a class="donate-btn" href="#" onclick="return payCustom()">Donate Custom</a>
+
     <div class="about">
       I'm a passionate developer creating tools and content that help others. Your donation helps me stay independent and keep building useful stuff. 🙏
     </div>
   </div>
+
   <footer>
     © 2025 Cibin Anoop | <a href="https://github.com/yourusername" target="_blank">GitHub</a>
   </footer>
-  <div class="fab" onclick="scrollToDonate()">
+
+  <div class="fab" onclick="document.getElementById('top').scrollIntoView({behavior: 'smooth'});">
     💸 Donate
   </div>
+
   <script>
-    const upiId = "cibinanoop242004@oksbi";
-    const name = "Cibin Anoop";
-    const aid = "uGICAgMDSk4eALQ";
-
-    function payNow(amount) {
-      const fixedAmount = parseFloat(amount).toFixed(2);
-      const url = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${fixedAmount}&cu=INR&aid=${aid}`;
-      window.location.href = url;
-    }
-
     function payCustom() {
-      let amount = parseFloat(document.getElementById("customAmount").value);
+      const amount = document.getElementById("customAmount").value;
       if (!amount || isNaN(amount) || amount <= 0) {
         alert("Please enter a valid amount.");
-        return;
+        return false;
       }
-      payNow(amount);
+      const fixed = parseFloat(amount).toFixed(2);
+      const url = `upi://pay?pa=cibinanoop242004@oksbi&pn=Cibin%20Anoop&am=${fixed}&cu=INR&aid=uGICAgMDSk4eALQ`;
+      window.location.href = url;
+      return false;
     }
 
-    function scrollToDonate() {
-      document.getElementById("top").scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function toggleQR() {
-      const qr = document.getElementById("qrBox");
-      const overlay = document.getElementById("qrOverlay");
-      const body = document.body;
-      qr.classList.toggle("enlarged");
-      overlay.classList.toggle("show");
-      body.classList.toggle("no-scroll");
+    function enlargeQR() {
+      alert("Long-press the QR code to scan it in your UPI app.");
     }
   </script>
 </body>
