@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support My Work 💙</title>
+  <meta name="description" content="Support my work with a secure UPI donation. Simple, fast, and appreciated.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4b6cb7;
+      --primary-dark: #182848;
+      --text-color: #2f3640;
+      --bg: #f6f8fb;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f2f6fc;
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      max-width: 420px;
+      width: 100%;
+      padding: 32px;
+      text-align: center;
+      animation: fadeIn 0.7s ease;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+      font-size: 15px;
+    }
+
+    .reasons {
+      text-align: left;
+      font-size: 14px;
+      margin-top: 20px;
+      padding-left: 15px;
+    }
+
+    .reasons li {
+      margin-bottom: 10px;
+    }
+
+    .qr {
+      padding: 20px;
+      background: #f8faff;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      margin: 20px 0;
+      cursor: zoom-in;
+      transition: all 0.3s ease;
+    }
+
+    .qr.enlarged {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.1);
+      background: white;
+      z-index: 10001;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      animation: scaleIn 0.3s ease;
+    }
+
+    .qr img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 12px;
+    }
+
+    .scan-note {
+      font-size: 13px;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    .donate-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .donate-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .donate-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      font-size: 14px;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    .about {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #444;
+      background: #f1f3f6;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #aaa;
+      text-align: center;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .fab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      font-size: 16px;
+      padding: 14px 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: background 0.3s ease;
+      z-index: 1000;
+    }
+
+    .fab:hover {
+      background: var(--primary-dark);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      display: none;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.8) translate(-50%, -50%); opacity: 0; }
+      to { transform: scale(1.1) translate(-50%, -50%); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="qrOverlay" onclick="toggleQR()"></div>
+  <div class="card" id="top">
+    <h1>Support My Work 💙</h1>
+    <p>Scan or click an amount to donate via UPI</p>
+    <div class="qr" id="qrBox">
+      <img src="qr-code.svg" alt="UPI QR Code" onclick="toggleQR()">
+      <p class="scan-note">Scan using any UPI app like GPay, PhonePe, or Paytm</p>
+      <p style="font-size: 13px; color: #777;">UPI ID: <strong>cibinanoop242004@oksbi</strong></p>
+    </div>
+    <ul class="reasons">
+      <li>💡 Help me build more open-source tools</li>
+      <li>📚 Fund my learning and development</li>
+      <li>☕ Buy me a coffee if you liked my work</li>
+    </ul>
+    <div class="donate-buttons">
+      <button class="donate-btn" onclick="payNow(19.00)">₹19</button>
+      <button class="donate-btn" onclick="payNow(49.00)">₹49</button>
+      <button class="donate-btn" onclick="payNow(99.00)">₹99</button>
+    </div>
+    <input type="number" id="customAmount" placeholder="Enter custom amount (₹)">
+    <button class="donate-btn" onclick="payCustom()">Donate Custom</button>
+    <div class="about">
+      I'm a passionate developer creating tools and content that help others. Your donation helps me stay independent and keep building useful stuff. 🙏
+    </div>
+  </div>
+  <footer>
+    © 2025 C!B!N | <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+  </footer>
+  <div class="fab" onclick="scrollToDonate()">
+    💸 Donate
+  </div>
+  <script>
+    const upiId = "cibinanoop242004@oksbi";
+    const name = "Cibin%20Anoop";
+
+    function payNow(amount) {
+      const fixedAmount = parseFloat(amount).toFixed(2);
+      const url = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${fixedAmount}&cu=INR&aid=uGICAgMDSk4eALQ`;
+      window.location.href = url;
+    }
+
+    function payCustom() {
+      let amount = parseFloat(document.getElementById("customAmount").value);
+      if (!amount || isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+      payNow(amount);
+    }
+
+    function scrollToDonate() {
+      document.getElementById("top").scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleQR() {
+      const qr = document.getElementById("qrBox");
+      const overlay = document.getElementById("qrOverlay");
+      const body = document.body;
+      qr.classList.toggle("enlarged");
+      overlay.classList.toggle("show");
+      body.classList.toggle("no-scroll");
+    }
+  </script>
+</body>
+</html>
