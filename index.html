@@ -223,9 +223,9 @@
       <li>☕ Buy me a coffee if you liked my work</li>
     </ul>
     <div class="donate-buttons">
-      <button class="donate-btn" onclick="payNow(19.00)">₹19</button>
-      <button class="donate-btn" onclick="payNow(49.00)">₹49</button>
-      <button class="donate-btn" onclick="payNow(99.00)">₹99</button>
+      <button class="donate-btn" onclick="payNow(19)">₹19</button>
+      <button class="donate-btn" onclick="payNow(49)">₹49</button>
+      <button class="donate-btn" onclick="payNow(99)">₹99</button>
     </div>
     <input type="number" id="customAmount" placeholder="Enter custom amount (₹)">
     <button class="donate-btn" onclick="payCustom()">Donate Custom</button>
@@ -234,17 +234,19 @@
     </div>
   </div>
   <footer>
-    © 2025 C!B!N | <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+    © 2025 Cibin Anoop | <a href="https://github.com/yourusername" target="_blank">GitHub</a>
   </footer>
   <div class="fab" onclick="scrollToDonate()">
     💸 Donate
   </div>
   <script>
     const upiId = "cibinanoop242004@oksbi";
+    const name = "Cibin Anoop";
+    const aid = "uGICAgMDSk4eALQ";
 
     function payNow(amount) {
       const fixedAmount = parseFloat(amount).toFixed(2);
-      const url = `upi://pay?pa=${upiId}&pn=Cibin%20Anoop&am=${fixedAmount}&cu=INR&aid=uGICAgMDSk4eALQ`;
+      const url = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${fixedAmount}&cu=INR&aid=${aid}`;
       window.location.href = url;
     }
 
