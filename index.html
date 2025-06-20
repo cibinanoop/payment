@@ -5,26 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Support My Work 💙</title>
   <meta name="description" content="Support my work with a secure UPI donation. Simple, fast, and appreciated.">
-  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="icon" type="image/png" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #4b6cb7;
       --primary-dark: #182848;
       --text-color: #2f3640;
+      --bg: #f6f8fb;
     }
     * {
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
       background: #f2f6fc;
       color: var(--text-color);
-      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 20px;
     }
     .card {
       background: #fff;
@@ -34,22 +36,32 @@
       width: 100%;
       padding: 32px;
       text-align: center;
+      animation: fadeIn 0.7s ease;
     }
     h1 {
       font-size: 26px;
       margin-bottom: 10px;
     }
+    p {
+      color: #666;
+      font-size: 15px;
+    }
     .qr {
-      margin: 20px auto;
       padding: 20px;
       background: #f8faff;
-      border-radius: 16px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      margin: 20px 0;
       cursor: zoom-in;
+      transition: all 0.3s ease;
     }
     .qr img {
       width: 100%;
       max-width: 300px;
+      height: auto;
       border-radius: 12px;
+      display: block;
+      margin: auto;
     }
     .scan-note {
       font-size: 13px;
@@ -58,32 +70,40 @@
     }
     .donate-buttons {
       display: flex;
+      flex-wrap: wrap;
       gap: 12px;
       justify-content: center;
       margin: 20px 0;
-      flex-wrap: wrap;
     }
     .donate-btn {
       background: var(--primary);
-      color: white;
-      border: none;
+      color: #fff;
       padding: 10px 16px;
-      border-radius: 8px;
       font-size: 14px;
-      cursor: pointer;
-      transition: background 0.3s ease;
+      border-radius: 8px;
       text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.2s;
     }
     .donate-btn:hover {
       background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    input[type="number"] {
+      padding: 10px;
+      font-size: 14px;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
     }
     .about {
       margin-top: 25px;
       font-size: 14px;
+      color: #444;
       background: #f1f3f6;
       padding: 15px;
       border-radius: 10px;
-      color: #444;
     }
     footer {
       margin-top: 30px;
@@ -91,21 +111,33 @@
       color: #aaa;
       text-align: center;
     }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
     .fab {
       position: fixed;
       bottom: 20px;
       right: 20px;
       background: var(--primary);
       color: white;
+      font-size: 16px;
       padding: 14px 20px;
       border-radius: 30px;
-      font-size: 16px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       cursor: pointer;
+      transition: background 0.3s ease;
       z-index: 1000;
     }
     .fab:hover {
       background: var(--primary-dark);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -113,18 +145,26 @@
   <div class="card" id="top">
     <h1>Support My Work 💙</h1>
     <p>Scan or click an amount to donate via UPI</p>
-
     <div class="qr">
       <img src="qr-code.svg" alt="UPI QR Code">
       <p class="scan-note">Scan using any UPI app like GPay, PhonePe, or Paytm</p>
       <p style="font-size: 13px; color: #777;">UPI ID: <strong>cibinanoop242004@oksbi</strong></p>
     </div>
 
+    <ul style="text-align:left; font-size: 14px; padding-left: 20px;">
+      <li>💡 Help me build more open-source tools</li>
+      <li>📚 Fund my learning and development</li>
+      <li>☕ Buy me a coffee if you liked my work</li>
+    </ul>
+
     <div class="donate-buttons">
       <a class="donate-btn" href="upi://pay?pa=cibinanoop242004@oksbi&pn=Cibin%20Anoop&am=19.00&cu=INR&aid=uGICAgMDSk4eALQ">₹19</a>
       <a class="donate-btn" href="upi://pay?pa=cibinanoop242004@oksbi&pn=Cibin%20Anoop&am=49.00&cu=INR&aid=uGICAgMDSk4eALQ">₹49</a>
       <a class="donate-btn" href="upi://pay?pa=cibinanoop242004@oksbi&pn=Cibin%20Anoop&am=99.00&cu=INR&aid=uGICAgMDSk4eALQ">₹99</a>
     </div>
+
+    <input type="number" id="customAmount" placeholder="Enter custom amount (₹)">
+    <a href="#" class="donate-btn" onclick="payCustom()">Donate Custom</a>
 
     <div class="about">
       I'm a passionate developer creating tools and content that help others. Your donation helps me stay independent and keep building useful stuff. 🙏
@@ -135,8 +175,31 @@
     © 2025 Cibin Anoop | <a href="https://github.com/yourusername" target="_blank">GitHub</a>
   </footer>
 
-  <div class="fab" onclick="document.getElementById('top').scrollIntoView({ behavior: 'smooth' })">
+  <div class="fab" onclick="document.getElementById('top').scrollIntoView({ behavior: 'smooth' });">
     💸 Donate
   </div>
+
+  <script>
+    const upiId = "cibinanoop242004@oksbi";
+    const name = "Cibin Anoop";
+    const aid = "uGICAgMDSk4eALQ";
+
+    function payCustom() {
+      const input = document.getElementById("customAmount").value;
+      let amount = parseFloat(input);
+      if (!amount || isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+      const fixed = amount.toFixed(2);
+      const upiURL = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${fixed}&cu=INR&aid=${aid}`;
+      const intentURL = `intent://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${fixed}&cu=INR&aid=${aid}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
+
+      window.location.href = upiURL;
+      setTimeout(() => {
+        window.location.href = intentURL;
+      }, 1200);
+    }
+  </script>
 </body>
 </html>
