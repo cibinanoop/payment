@@ -1,232 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support My Work 💙</title>
-  <meta name="description" content="Support my work with a secure UPI donation. Simple, fast, and appreciated.">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support My Work 💛</title>
+  <meta name="description" content="Support my work by donating through UPI." />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary: #4b6cb7;
-      --primary-dark: #182848;
-      --text-color: #2f3640;
-      --bg: #f6f8fb;
+      --gradient: linear-gradient(135deg, #d4a037, #000000);
+      --glass-bg: rgba(255, 255, 255, 0.12);
+      --blur: 20px;
+      --font: 'Outfit', sans-serif;
+      --gold: #d4a037;
     }
 
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
+    }
+
+    html {
       scroll-behavior: smooth;
     }
 
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #f2f6fc;
-      color: var(--text-color);
+      font-family: var(--font);
+      background: var(--gradient);
+      color: white;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
-    }
-
-    body.no-scroll {
-      overflow: hidden;
-    }
-
-    main {
-      width: 100%;
-      max-width: 420px;
+      padding: 40px 20px 100px;
+      background-attachment: fixed;
     }
 
     .card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      padding: 32px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      border-radius: 20px;
+      max-width: 440px;
+      width: 100%;
+      padding: 40px 30px;
       text-align: center;
-      animation: fadeIn 0.7s ease;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     }
 
     h1 {
-      font-size: 26px;
+      font-size: 28px;
       margin-bottom: 10px;
     }
 
-    p {
-      color: #666;
-      font-size: 15px;
+    .verified-note {
+      font-size: 13px;
+      background: var(--gold);
+      color: black;
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      position: relative;
+      cursor: help;
     }
 
-    .reasons {
-      text-align: left;
-      font-size: 14px;
-      margin-top: 20px;
-      padding-left: 15px;
-    }
-
-    .reasons li {
-      margin-bottom: 10px;
+    .verified-note:hover::after {
+      content: 'This creator is verified and trusted';
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+      font-size: 12px;
     }
 
     .qr {
-      padding: 20px;
-      background: #f8faff;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      margin: 20px 0;
+      margin: 25px auto;
+      background: white;
+      padding: 16px;
+      border-radius: 16px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.3s;
     }
 
-    .qr.enlarged {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(1.1);
-      background: white;
-      z-index: 10001;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-      animation: scaleIn 0.3s ease;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .qr:hover {
+      transform: scale(1.02);
     }
 
     .qr img {
       width: 100%;
-      max-width: 300px;
-      height: auto;
-      display: block;
-      margin: 0 auto;
+      max-width: 280px;
       border-radius: 12px;
     }
 
-    .scan-note {
-      font-size: 13px;
-      color: #555;
-      margin-top: 10px;
+    .upi-id {
+      font-size: 15px;
+      margin-top: 12px;
+      color: #ddd;
+      cursor: pointer;
     }
 
-    .about {
-      margin-top: 25px;
-      font-size: 14px;
-      color: #444;
-      background: #f1f3f6;
-      padding: 15px;
-      border-radius: 10px;
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 13px;
-      color: #aaa;
-      text-align: center;
-    }
-
-    a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    a:hover {
+    .upi-id:hover {
       text-decoration: underline;
     }
 
-    .fab {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--primary);
-      color: white;
+    .donate-btn {
+      margin-top: 20px;
+      background: var(--gold);
+      color: black;
+      font-weight: 600;
+      padding: 12px 24px;
       font-size: 16px;
-      padding: 14px 20px;
+      border: none;
       border-radius: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       cursor: pointer;
-      transition: background 0.3s ease;
-      z-index: 1000;
     }
 
-    .fab:hover {
-      background: var(--primary-dark);
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 10000;
+    .mobile-warning {
+      margin-top: 10px;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 10px;
       display: none;
     }
 
-    .overlay.show {
-      display: block;
+    .secure-note {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #aaa;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    footer {
+      margin-top: 60px;
+      font-size: 13px;
+      color: #aaa;
     }
 
-    @keyframes scaleIn {
-      from { transform: scale(0.8) translate(-50%, -50%); opacity: 0; }
-      to { transform: scale(1.1) translate(-50%, -50%); opacity: 1; }
+    .floating-donate-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--gold);
+      color: black;
+      font-weight: bold;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    #greeting {
+      margin-top: 8px;
+      font-size: 16px;
+      color: #ffe;
+    }
+
+    .section {
+      max-width: 700px;
+      text-align: center;
+      margin-top: 60px;
+      padding: 0 20px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .section h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .section p {
+      font-size: 15px;
+      color: #ddd;
+      line-height: 1.7;
+    }
+
+    .testimonial {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 15px auto;
+      max-width: 600px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .testimonial:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .testimonial:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="overlay" id="qrOverlay" onclick="toggleQR()"></div>
-  <main>
-    <div class="card" id="top">
-      <h1>Support My Work 💙</h1>
-      <p>Scan or click an amount to donate via UPI</p>
-      <div class="qr" id="qrBox">
-        <img src="qr-code.svg" alt="UPI QR Code for donating to Cibin Anoop" onclick="toggleQR()">
-        <p class="scan-note">Scan using any UPI app like GPay, PhonePe, or Paytm</p>
-        <p style="font-size: 13px; color: #777;">
-          UPI ID: <strong id="upiID">cibinanoop242004@oksbi</strong>
-          <span onclick="copyUPI()" title="Copy UPI ID" style="cursor:pointer; margin-left: 8px;">📋</span>
-        </p>
-      </div>
-      <ul class="reasons">
-        <li>💡 Help me build more open-source tools</li>
-        <li>📚 Fund my learning and development</li>
-        <li>☕ Buy me a coffee if you liked my work</li>
-      </ul>
-      <div class="about">
-        I'm a passionate developer creating tools and content that help others. Your donation helps me stay independent and keep building useful stuff. 🙏
-      </div>
+  <div class="card" id="donate">
+    <h1>Support My Work 💛</h1>
+    <div class="verified-note">✔ Verified</div>
+    <div id="greeting"></div>
+
+    <div class="qr" onclick="showPopup()">
+      <img src="qr-code.svg" alt="UPI QR Code" />
     </div>
-  </main>
+
+    <div class="upi-id" onclick="copyUPI()">UPI ID: <strong id="upi">cibinanoop242004@oksbi</strong></div>
+
+    <button class="donate-btn" onclick="triggerDonation()">Donate Now</button>
+    <div class="mobile-warning" id="mobileWarn">⚠️ UPI buttons only work on mobile. Please scan the QR code manually.</div>
+    <div class="secure-note">🔒 This page does not collect any personal or banking info.</div>
+  </div>
+
+  <div class="section">
+    <h2>About Me 👨‍💻</h2>
+    <p>
+      I'm Cibin, an indie developer from Kerala passionate about building tools that simplify life. Your support allows me to focus on creating helpful and ad-free resources for everyone.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Testimonials 💬</h2>
+    <div class="testimonial">“Incredible creator! His tools saved me so much time and effort.” – Tom jose.</div>
+    <div class="testimonial">“User-friendly, elegant, and practical. Proud to support his work.” – Meera P.</div>
+    <div class="testimonial">“Keep up the great work! Your creations have real impact.” – Arjun T.</div>
+  </div>
+
+  <button class="floating-donate-btn" onclick="document.getElementById('donate').scrollIntoView({behavior: 'smooth'})">
+    💸 Donate
+  </button>
+
+  <canvas id="confetti"></canvas>
+
   <footer>
     © 2025 Cibin Anoop | <a href="https://github.com/yourusername" target="_blank">GitHub</a>
   </footer>
-  <div class="fab" onclick="scrollToDonate()">💸 Donate</div>
 
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
-    function scrollToDonate() {
-      document.getElementById("top").scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function toggleQR() {
-      const qr = document.getElementById("qrBox");
-      const overlay = document.getElementById("qrOverlay");
-      const body = document.body;
-      qr.classList.toggle("enlarged");
-      overlay.classList.toggle("show");
-      body.classList.toggle("no-scroll");
-    }
-
     function copyUPI() {
-      const upi = document.getElementById("upiID").innerText;
+      const upi = document.getElementById("upi").innerText;
       navigator.clipboard.writeText(upi).then(() => {
         alert("UPI ID copied to clipboard!");
       });
     }
+
+    function triggerDonation() {
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (!isMobile) {
+        document.getElementById("mobileWarn").style.display = "block";
+        return;
+      }
+      window.location.href = "upi://pay?pa=cibinanoop242004@oksbi&pn=Cibin%20Anoop&cu=INR";
+      confetti();
+    }
+
+    function showPopup() {
+      alert("Tap and hold to scan QR in your UPI app or save the image.");
+    }
+
+    const greeting = document.getElementById("greeting");
+    const hour = new Date().getHours();
+    if (hour < 12) greeting.innerText = "Good Morning!";
+    else if (hour < 18) greeting.innerText = "Good Afternoon!";
+    else greeting.innerText = "Good Evening!";
   </script>
 </body>
 </html>
