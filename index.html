@@ -216,13 +216,13 @@
     <div class="verified-note">✔ Verified</div>
     <div id="greeting"></div>
 
-    <div class="qr" onclick="showPopup()">
-      <img src="qr-code.svg" alt="UPI QR Code" />
+    <div class="qr" oncontextmenu="downloadImage(event)">
+      <img id="qrImage" src="qr-code.svg" alt="UPI QR Code">
     </div>
 
     <div class="upi-id" onclick="copyUPI()">UPI ID: <strong id="upi">cibinanoop242004@oksbi</strong></div>
 
-    <button class="donate-btn" onclick="triggerDonation()">Donate Now</button>
+    <button class="donate-btn" onclick="triggerDonation()">Pay Now</button>
     <div class="mobile-warning" id="mobileWarn">⚠️ UPI buttons only work on mobile. Please scan the QR code manually.</div>
     <div class="secure-note">🔒 This page does not collect any personal or banking info.</div>
   </div>
@@ -236,7 +236,7 @@
 
   <div class="section">
     <h2>Testimonials 💬</h2>
-    <div class="testimonial">“Incredible creator! His tools saved me so much time and effort.” – Tom jose.</div>
+    <div class="testimonial">“Incredible creator! His tools saved me so much time and effort.” – Nikhil S.</div>
     <div class="testimonial">“User-friendly, elegant, and practical. Proud to support his work.” – Meera P.</div>
     <div class="testimonial">“Keep up the great work! Your creations have real impact.” – Arjun T.</div>
   </div>
@@ -270,8 +270,26 @@
       confetti();
     }
 
-    function showPopup() {
-      alert("Tap and hold to scan QR in your UPI app or save the image.");
+    function downloadImage(e) {
+      e.preventDefault();
+      const img = document.getElementById("qrImage");
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const tempImage = new Image();
+      tempImage.crossOrigin = "anonymous";
+      tempImage.onload = function () {
+        canvas.width = tempImage.width;
+        canvas.height = tempImage.height;
+        ctx.drawImage(tempImage, 0, 0);
+        const pngUrl = canvas.toDataURL("image/png");
+        const downloadLink = document.createElement("a");
+        downloadLink.href = pngUrl;
+        downloadLink.download = "qr-code.png";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      };
+      tempImage.src = img.src;
     }
 
     const greeting = document.getElementById("greeting");
