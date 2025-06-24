@@ -210,45 +210,49 @@
   </div>
 
   <script>
-    document.getElementById('orderForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const submitBtn = document.getElementById('submitBtn');
-  submitBtn.classList.add('loading');
-  submitBtn.disabled = true;
-
-  const fields = [
-    'name','email','phone','phone2','country','state','district','address','pincode','landmark',
-    'product','quantity','delivery','payment','order','note'
-  ];
-  const data = {};
-  fields.forEach(id => data[id] = document.getElementById(id).value);
-
-  // Replace with your Apps Script URL
-  const scriptURL = "https://script.google.com/macros/s/AKfycbzFrewNf4Q5jLz6ijs-w9oBmuuRGy1-rRwK5lxUtaReFrHHKIoI07g1mPVVhm1Ah3AA/exec";
-
-  try {
-    const response = await fetch(scriptURL, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-
-    const result = await response.json();
-    document.getElementById('popupTracking').textContent = result.trackingID;
-    document.getElementById('popup').style.display = 'flex';
-    document.getElementById('orderForm').reset();
-    document.getElementById('upiSection').style.display = 'none';
-  } catch (err) {
-    alert("Error submitting the form. Please try again.");
+  function toggleUPI() {
+    const method = document.getElementById('payment').value;
+    const ss = document.getElementById('screenshot');
+    document.getElementById('upiSection').style.display = (method === 'UPI') ? 'block' : 'none';
+    ss.required = (method === 'UPI');
   }
 
-  submitBtn.classList.remove('loading');
-  submitBtn.disabled = false;
-});
+  document.getElementById('orderForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-  </script>
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    const fields = [
+      'name','email','phone','phone2','country','state','district','address','pincode','landmark',
+      'product','quantity','delivery','payment','order','note'
+    ];
+    const data = {};
+    fields.forEach(id => data[id] = document.getElementById(id).value);
+
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwcMf7JOwm0Uh-T-Oh0lOFN9TtHMtIETLkvjptiJZtQvSL3pLsAVo-7nGHud6vn1rcUhA/exec";
+
+    try {
+      const response = await fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      const result = await response.json();
+      document.getElementById('popupTracking').textContent = result.trackingID;
+      document.getElementById('popup').style.display = 'flex';
+      document.getElementById('orderForm').reset();
+      document.getElementById('upiSection').style.display = 'none';
+    } catch (err) {
+      alert("Error submitting the form. Please try again.");
+    }
+
+    submitBtn.classList.remove('loading');
+    submitBtn.disabled = false;
+  });
+</script>
+
 </body>
 </html>
