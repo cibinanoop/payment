@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luxury Order Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+      padding: 20px;
+    }
+    .container {
+      max-width: 650px;
+      margin: auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+    .verified-badge {
+      background: #27ae60;
+      color: white;
+      padding: 2px 8px;
+      font-size: 0.8rem;
+      border-radius: 12px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    input[type="file"] {
+      background: #f8f8f8;
+      border: 2px dashed #999;
+      cursor: pointer;
+      padding: 10px;
+      transition: 0.3s;
+    }
+    input[type="file"]:hover {
+      border-color: #4a00e0;
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    button {
+      width: 100%;
+      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      position: relative;
+      font-size: 16px;
+    }
+    button[disabled] {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    .spinner {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #fff;
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      transform: translateY(-50%);
+      display: none;
+    }
+    button.loading .spinner {
+      display: inline-block;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    #upiSection {
+      display: none;
+      margin-top: 10px;
+      text-align: center;
+      border: 1px dashed #ccc;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .qr-img {
+      max-width: 200px;
+      margin: 10px auto;
+    }
+    .upi-id {
+      cursor: pointer;
+      color: #2980b9;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    .popup-content h3 {
+      margin-bottom: 10px;
+      color: #2ecc71;
+    }
+    .popup-content p span {
+      font-weight: bold;
+      color: #8e2de2;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Luxury Order Form <span class="verified-badge">Verified</span></h2>
+    <form id="orderForm">
+      <div class="form-group"><label>Full Name *</label><input type="text" id="name" required /></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="email" /></div>
+      <div class="form-group"><label>Phone Number *</label><input type="number" id="phone" required /></div>
+      <div class="form-group"><label>Alternate Phone Number</label><input type="number" id="phone2" /></div>
+      <div class="form-group"><label>Country *</label><input type="text" id="country" required /></div>
+      <div class="form-group"><label>State *</label><input type="text" id="state" required /></div>
+      <div class="form-group"><label>District *</label><input type="text" id="district" required /></div>
+      <div class="form-group"><label>Full Address *</label><input type="text" id="address" required /></div>
+      <div class="form-group"><label>Pincode *</label><input type="number" id="pincode" required /></div>
+      <div class="form-group"><label>Landmark</label><input type="text" id="landmark" /></div>
+      <div class="form-group">
+        <label>Product *</label>
+        <select id="product" required>
+          <option disabled selected value="">Select Product</option>
+          <option>Product A</option>
+          <option>Product B</option>
+          <option>Product C</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Quantity *</label><input type="number" id="quantity" required /></div>
+      <div class="form-group">
+        <label>Preferred Delivery Time *</label>
+        <select id="delivery" required>
+          <option disabled selected value="">Select Time</option>
+          <option>Anytime (8am - 7pm)</option>
+          <option>Morning (8am - 11am)</option>
+          <option>Afternoon (12pm - 3pm)</option>
+          <option>Evening (4pm - 7pm)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Payment Method *</label>
+        <select id="payment" required onchange="toggleUPI()">
+          <option disabled selected value="">Select Payment</option>
+          <option value="UPI">UPI</option>
+          <option value="COD">Cash on Delivery</option>
+          <option value="Bank">Bank Transfer</option>
+        </select>
+      </div>
+      <div id="upiSection">
+        <img src="qr-code.svg" alt="GPay QR Code" class="qr-img" />
+        <div class="upi-id" onclick="copyUPI()">cibinanoop242004@oksbi</div>
+        <div class="form-group">
+          <label>Upload Payment Screenshot *</label>
+          <input type="file" id="screenshot" accept="image/*" />
+        </div>
+      </div>
+      <div class="form-group"><label>Order Details *</label><textarea id="order" required></textarea></div>
+      <div class="form-group"><label>Note to Seller</label><textarea id="note"></textarea></div>
+      <button type="submit" id="submitBtn">Submit Order <span class="spinner"></span></button>
+    </form>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h3>Thank you!</h3>
+      <p>Your order has been submitted.<br>Your tracking ID is: <span id="popupTracking"></span></p>
+      <button onclick="document.getElementById('popup').style.display='none'">Close</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.classList.add('loading');
+  submitBtn.disabled = true;
+
+  const fields = [
+    'name','email','phone','phone2','country','state','district','address','pincode','landmark',
+    'product','quantity','delivery','payment','order','note'
+  ];
+  const data = {};
+  fields.forEach(id => data[id] = document.getElementById(id).value);
+
+  // Replace with your Apps Script URL
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzFrewNf4Q5jLz6ijs-w9oBmuuRGy1-rRwK5lxUtaReFrHHKIoI07g1mPVVhm1Ah3AA/exec";
+
+  try {
+    const response = await fetch(scriptURL, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const result = await response.json();
+    document.getElementById('popupTracking').textContent = result.trackingID;
+    document.getElementById('popup').style.display = 'flex';
+    document.getElementById('orderForm').reset();
+    document.getElementById('upiSection').style.display = 'none';
+  } catch (err) {
+    alert("Error submitting the form. Please try again.");
+  }
+
+  submitBtn.classList.remove('loading');
+  submitBtn.disabled = false;
+});
+
+  </script>
+</body>
+</html>
